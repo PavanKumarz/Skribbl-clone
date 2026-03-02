@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:skribbl_clone/create_room_page.dart';
+import 'package:skribbl_clone/join_room_page.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
@@ -95,7 +97,19 @@ class OnboardingPage extends StatelessWidget {
     final cardColor = isCreate ? Colors.blue[200] : Colors.green[200];
     final title = isCreate ? "Create Room" : "Join Room";
     final buttonText = isCreate ? "Create" : "Join";
-
+    final VoidCallback onTap = isCreate
+        ? () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => CreateRoomPage()),
+            );
+          }
+        : () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => JoinRoomPage()),
+            );
+          };
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -117,7 +131,7 @@ class OnboardingPage extends StatelessWidget {
             width: double.infinity,
             height: 45,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: onTap,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 foregroundColor: Colors.white,
