@@ -1,0 +1,20 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+  "Satrt":"node ./index.js",
+  "dev":"nodemon ./index.js"  
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.13.6",
+    "express": "^5.2.1",
+    "http": "^0.0.1-security",
+    "mongoose": "^9.2.4",
+    "nodemon": "^3.1.14",
+    "socket.io": "^4.8.3"
+  }
+}

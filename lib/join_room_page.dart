@@ -1,7 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:skribbl_clone/doodle_page.dart';
 
-class JoinRoomPage extends StatelessWidget {
+class JoinRoomPage extends StatefulWidget {
   const JoinRoomPage({super.key});
+
+  @override
+  State<JoinRoomPage> createState() => _JoinRoomPageState();
+}
+
+class _JoinRoomPageState extends State<JoinRoomPage> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _roomNameController = TextEditingController();
+
+  void joinRoom() {
+    if (_nameController.text.isNotEmpty &&
+        _roomNameController.text.isNotEmpty) {
+      Map<String, String> data = {
+        "nickname": _nameController.text,
+        "name": _roomNameController.text,
+      };
+
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => DoodlePage(data: data, screenFrom: 'joinRoom'),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +80,8 @@ class JoinRoomPage extends StatelessWidget {
 
                             // Nickname
                             TextField(
+                              controller: _nameController,
+
                               decoration: InputDecoration(
                                 hintText: 'Your nickname',
                                 border: OutlineInputBorder(
@@ -73,6 +100,8 @@ class JoinRoomPage extends StatelessWidget {
 
                             // Room name
                             TextField(
+                              controller: _roomNameController,
+
                               decoration: InputDecoration(
                                 hintText: 'Room name',
                                 border: OutlineInputBorder(
@@ -90,7 +119,7 @@ class JoinRoomPage extends StatelessWidget {
                             const SizedBox(height: 15),
 
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: joinRoom,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.green,
                                 foregroundColor: Colors.white,

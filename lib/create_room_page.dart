@@ -1,7 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:skribbl_clone/doodle_page.dart';
 
-class CreateRoomPage extends StatelessWidget {
+class CreateRoomPage extends StatefulWidget {
   const CreateRoomPage({super.key});
+
+  @override
+  State<CreateRoomPage> createState() => _CreateRoomPageState();
+}
+
+class _CreateRoomPageState extends State<CreateRoomPage> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _roomNameController = TextEditingController();
+  late String? _maxRoundsValue;
+  late String? _roomSizeValue;
+
+  void createRoom() {
+    if (_nameController.text.isNotEmpty &&
+        _roomNameController.text.isNotEmpty &&
+        _maxRoundsValue != null &&
+        _roomSizeValue != null) {
+      Map<String, String> data = {
+        "nickname": _nameController.text,
+        "name": _roomNameController.text,
+        "occupancy": _maxRoundsValue!,
+        "maxRounds": _roomSizeValue!,
+      };
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) =>
+              DoodlePage(data: data, screenFrom: 'createRoom'),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +87,7 @@ class CreateRoomPage extends StatelessWidget {
 
                             // Nickname
                             TextField(
+                              controller: _nameController,
                               decoration: InputDecoration(
                                 hintText: 'Your nickname',
                                 border: OutlineInputBorder(
@@ -74,6 +106,7 @@ class CreateRoomPage extends StatelessWidget {
 
                             // Room name
                             TextField(
+                              controller: _roomNameController,
                               decoration: InputDecoration(
                                 hintText: 'Room name',
                                 border: OutlineInputBorder(
@@ -106,7 +139,7 @@ class CreateRoomPage extends StatelessWidget {
                                           child: DropdownButton<String>(
                                             isExpanded: true,
                                             hint: const Text('Select'),
-                                            items: ["4", "6", "8"]
+                                            items: ["2", "4", "6"]
                                                 .map(
                                                   (item) =>
                                                       DropdownMenuItem<String>(
@@ -115,7 +148,9 @@ class CreateRoomPage extends StatelessWidget {
                                                       ),
                                                 )
                                                 .toList(),
-                                            onChanged: (value) {},
+                                            onChanged: (value) {
+                                              _maxRoundsValue = value;
+                                            },
                                           ),
                                         ),
                                       ),
@@ -135,7 +170,7 @@ class CreateRoomPage extends StatelessWidget {
                                           child: DropdownButton<String>(
                                             isExpanded: true,
                                             hint: const Text('Select'),
-                                            items: ["3", "5", "7"]
+                                            items: ["1", "2", "3", "4", "5"]
                                                 .map(
                                                   (item) =>
                                                       DropdownMenuItem<String>(
@@ -144,7 +179,9 @@ class CreateRoomPage extends StatelessWidget {
                                                       ),
                                                 )
                                                 .toList(),
-                                            onChanged: (value) {},
+                                            onChanged: (value) {
+                                              _roomSizeValue = value;
+                                            },
                                           ),
                                         ),
                                       ),
@@ -168,7 +205,7 @@ class CreateRoomPage extends StatelessWidget {
                                             child: DropdownButton<String>(
                                               isExpanded: true,
                                               hint: const Text('Select'),
-                                              items: ["4", "6", "8"]
+                                              items: ["2", "4", "6"]
                                                   .map(
                                                     (item) =>
                                                         DropdownMenuItem<
@@ -179,7 +216,9 @@ class CreateRoomPage extends StatelessWidget {
                                                         ),
                                                   )
                                                   .toList(),
-                                              onChanged: (value) {},
+                                              onChanged: (value) {
+                                                _maxRoundsValue = value;
+                                              },
                                             ),
                                           ),
                                         ),
@@ -200,7 +239,7 @@ class CreateRoomPage extends StatelessWidget {
                                             child: DropdownButton<String>(
                                               isExpanded: true,
                                               hint: const Text('Select'),
-                                              items: ["3", "5", "7"]
+                                              items: ["2", "3", "4", "5", "6"]
                                                   .map(
                                                     (item) =>
                                                         DropdownMenuItem<
@@ -211,7 +250,9 @@ class CreateRoomPage extends StatelessWidget {
                                                         ),
                                                   )
                                                   .toList(),
-                                              onChanged: (value) {},
+                                              onChanged: (value) {
+                                                _roomSizeValue = value;
+                                              },
                                             ),
                                           ),
                                         ),
@@ -222,7 +263,7 @@ class CreateRoomPage extends StatelessWidget {
                             const SizedBox(height: 15),
 
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: createRoom,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.blue,
                                 foregroundColor: Colors.white,
