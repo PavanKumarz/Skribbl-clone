@@ -1,10 +1,11 @@
+require('dotenv').config(); 
 const express=require("express");
 var http =require("http");
 const app =express();
 const port= process.env.PORT||3000;
 const mongoose=require("mongoose");
 const getWord = require('./api/getWord');
-const Room = require("./models/Room");  
+const Room = require("./models/Room"); 
 
 var server=http.createServer(app);
 var socket=require("socket.io");
