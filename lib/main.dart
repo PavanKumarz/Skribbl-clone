@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skribbl_clone/onboarding_page.dart';
+import 'package:skribbl_clone/screens/onboarding_page.dart';
 
 void main() {
   runApp(const MyApp());

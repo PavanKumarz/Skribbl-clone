@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skribbl_clone/doodle_page.dart';
+import 'package:skribbl_clone/screens/doodle_page.dart';
 
 class JoinRoomPage extends StatefulWidget {
   const JoinRoomPage({super.key});

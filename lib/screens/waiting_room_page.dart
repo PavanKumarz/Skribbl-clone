@@ -6,13 +6,13 @@ class WaitingRoomPage extends StatefulWidget {
   final int noOfPlayers;
   final String lobbyName;
   final players;
-  WaitingRoomPage({
-    Key? key,
+  const WaitingRoomPage({
+    super.key,
     required this.occupancy,
     required this.noOfPlayers,
     required this.lobbyName,
     this.players,
-  }) : super(key: key);
+  });
 
   @override
   State<WaitingRoomPage> createState() => _WaitingRoomPageState();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:skribbl_clone/create_room_page.dart';
-import 'package:skribbl_clone/join_room_page.dart';
+import 'package:skribbl_clone/screens/join_room_page.dart';
+import 'package:skribbl_clone/screens/create_room_page.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});

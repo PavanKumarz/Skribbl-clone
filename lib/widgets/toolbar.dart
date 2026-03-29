@@ -2,7 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class Toolbar extends StatefulWidget {
-  const Toolbar({super.key});
+  final Function(Color) onColorChange;
+  final Function(double) onStrokeChange;
+  final VoidCallback onClear;
+
+  const Toolbar({
+    super.key,
+    required this.onColorChange,
+    required this.onStrokeChange,
+    required this.onClear,
+  });
 
   @override
   State<Toolbar> createState() => _ToolbarState();
@@ -18,12 +27,14 @@ class _ToolbarState extends State<Toolbar> {
         title: const Text('Choose Color'),
         content: BlockPicker(
           pickerColor: Colors.black,
-          onColorChanged: (color) {},
+          onColorChanged: (color) {
+            widget.onColorChange(color);
+          },
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Close'),
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Close"),
           ),
         ],
       ),
@@ -32,39 +43,27 @@ class _ToolbarState extends State<Toolbar> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: _selectColor,
-            icon: const Icon(Icons.color_lens, color: Colors.black),
+    return Row(
+      children: [
+        IconButton(onPressed: _selectColor, icon: const Icon(Icons.color_lens)),
+        Expanded(
+          child: Slider(
+            min: 1,
+            max: 10,
+            value: _strokeWidth,
+            onChanged: (value) {
+              setState(() {
+                _strokeWidth = value;
+              });
+              widget.onStrokeChange(value);
+            },
           ),
-          Expanded(
-            child: Slider(
-              min: 1,
-              max: 10,
-              divisions: 9,
-              label: _strokeWidth.toStringAsFixed(1),
-              value: _strokeWidth,
-              onChanged: (value) {
-                setState(() {
-                  _strokeWidth = value;
-                });
-              },
-            ),
-          ),
-          Container(
-            width: 40,
-            alignment: Alignment.center,
-            child: Text(_strokeWidth.toStringAsFixed(1)),
-          ),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.layers)),
-        ],
-      ),
+        ),
+        IconButton(
+          onPressed: widget.onClear,
+          icon: const Icon(Icons.layers_clear),
+        ),
+      ],
     );
   }
 }

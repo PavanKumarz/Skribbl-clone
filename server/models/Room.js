@@ -32,7 +32,7 @@ const roomSchema = new mongoose.Schema({
         default: true,
     },
     turn: playerSchema,
-    turnIndex: {
+        turnIndex: {
         type: Number,
         default: 0
     }
